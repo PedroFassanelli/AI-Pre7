@@ -1,0 +1,57 @@
+# Levanta todo:   docker compose up -d --build
+# API:            http://localhost:8000/docs
+# Phoenix:        http://localhost:6006
+#
+# Para correr la API y el worker fuera de Docker (desarrollo), alcanza con:
+#   docker compose up -d redis phoenix
+
+services:
+  redis:
+    # Redis 8 trae incorporados los módulos de búsqueda y JSON que necesita
+    # AsyncRedisSaver (langgraph-checkpoint-redis). Un Redis 7 "pelado" no alcanza.
+    image: redis:8
+    command: ["redis-server", "--appendonly", "yes"]   # persistencia en disco (AOF)
+    ports: ["6379:6379"]
+    volumes: [redis-data:/data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  phoenix:
+    image: arizephoenix/phoenix:latest
+    ports:
+      - "6006:6006"   # UI + colector OTLP/HTTP (/v1/traces)
+      - "4317:4317"   # colector OTLP/gRPC
+    environment:
+      PHOENIX_WORKING_DIR: /mnt/data
+    volumes: [phoenix-data:/mnt/data]
+
+  api:
+    build: .
+    env_file: .env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      PHOENIX_COLLECTOR_ENDPOINT: http://phoenix:6006/v1/traces
+    ports: ["8000:8000"]
+    depends_on:
+      redis: {condition: service_healthy}
+
+  worker:
+    build: .
+    command: ["python", "-m", "app.worker"]
+    env_file: .env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      PHOENIX_COLLECTOR_ENDPOINT: http://phoenix:6006/v1/traces
+      DB_NEGOCIO: /data/nimbus.db
+    volumes: [negocio-data:/data]
+    depends_on:
+      redis: {condition: service_healthy}
+      phoenix: {condition: service_started}
+
+volumes:
+  redis-data:
+  phoenix-data:
+  negocio-data:
