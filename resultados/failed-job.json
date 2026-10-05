@@ -1,0 +1,30 @@
+{
+  "transiciones_observadas": [
+    "PENDING",
+    "RUNNING",
+    "FAILED"
+  ],
+  "job": {
+    "job_id": "4b449b41469247bcbd2f139a4bfe3de6",
+    "estado": "FAILED",
+    "pregunta": "¿Qué significa el error E4012 que tuvo Librería Ávila y cómo se resuelve?",
+    "creado_en": "2026-10-05T12:41:48.526+00:00",
+    "actualizado_en": "2026-10-05T12:41:49.841+00:00",
+    "iniciado_en": "2026-10-05T12:41:48.667+00:00",
+    "reanudado_en": null,
+    "terminado_en": "2026-10-05T12:41:49.841+00:00",
+    "nodo_actual": null,
+    "nodos": [],
+    "aprobacion_pendiente": null,
+    "aprobacion": null,
+    "respuesta": null,
+    "task_completed": null,
+    "resultado_accion": null,
+    "error": {
+      "tipo": "OpenAIAuthenticationError",
+      "mensaje": "Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-clave******************demo. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}"
+    },
+    "duracion_segundos": null,
+    "duracion_reanudacion_segundos": null
+  }
+}

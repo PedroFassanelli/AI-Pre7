@@ -1,0 +1,145 @@
+{
+  "resumen": {
+    "url": "http://localhost:8000",
+    "fecha": "2026-10-05T09:31:29",
+    "peticiones": 5,
+    "concurrencia": 5,
+    "estados_finales": {
+      "DONE": 4,
+      "AWAITING_APPROVAL": 1
+    },
+    "post_ms": {
+      "p50": 44.7,
+      "p95": 52.1,
+      "max": 52.5
+    },
+    "punta_a_punta_s": {
+      "p50": 19.54,
+      "p95": 26.64,
+      "max": 27.65,
+      "media": 20.12
+    }
+  },
+  "peticiones": [
+    {
+      "indice": 1,
+      "job_id": "1f0d07cb13cf4f41af9b14c91084cff9",
+      "pregunta": "El comercio Bazar Pampa viene teniendo pagos fallidos. ¿Cuál es el código de error que más se repite, qué significa según la documentación y cómo se resuelve? Y cuantificalo: qué porcentaje de sus pagos y qué porcentaje del monto total representan los fallidos por ese código.",
+      "latencia_post_s": 0.0212,
+      "latencia_hasta_estado_s": 22.572,
+      "estado_tras_primera_fase": "DONE",
+      "estado_final": "DONE",
+      "duracion_worker_s": 21.389,
+      "duracion_reanudacion_worker_s": null,
+      "nodos": [
+        "supervisor",
+        "investigador",
+        "supervisor",
+        "analista",
+        "supervisor",
+        "sintetizador",
+        "planificador"
+      ],
+      "error": null,
+      "respuesta": "El código de error que más se repite en los pagos fallidos del comercio Bazar Pampa es **E4090**, que se presenta 3 veces. Este error significa \"Conflicto de idempotencia\". Ocurre cuando se reutiliza una `idempotency_key` con un cuerpo distinto. La clave debe derivarse de algo estable del lado del comercio, como el identificador del pedido, y no de un UUID generado en cada clic. Si se repite la misma solicitud con la misma clave, se devuelve la respuesta original en lugar de crear una nueva operación. Pasadas 24 horas, la clave se libera y se puede crear una nueva operación con la misma clave [02-referencia-api.md], [03-manejo-de-errores.md].\n\nEn cuanto a la cuantificación, el porcentaje de pagos fallidos por el código de error E4090 sobre el total de pagos es del **42.86%**. Además, el porcentaje del monto total que representan los fallidos por este código es del **58.83%**.\n\nLimitaciones: No se realizaron cálculos sobre el porcentaje de pagos fallidos ni del monto total que representan en el informe del investigador, ya que eso corresponde a otro agente.",
+      "resultado_accion": null,
+      "ronda": 1
+    },
+    {
+      "indice": 2,
+      "job_id": "85cc2d2b6b984be6b7af46784b1da8ae",
+      "pregunta": "¿Qué significa el error E4021 que tuvo Café Tortoni Centro y cómo se resuelve? ¿Qué porcentaje del monto total de sus pagos representa el pago fallido?",
+      "latencia_post_s": 0.0417,
+      "latencia_hasta_estado_s": 19.535,
+      "estado_tras_primera_fase": "DONE",
+      "estado_final": "DONE",
+      "duracion_worker_s": 18.385,
+      "duracion_reanudacion_worker_s": null,
+      "nodos": [
+        "supervisor",
+        "investigador",
+        "supervisor",
+        "analista",
+        "supervisor",
+        "sintetizador",
+        "planificador"
+      ],
+      "error": null,
+      "respuesta": "El error E4021 corresponde a la excepción `PagoRechazado` y significa \"Fondos insuficientes\". Este error no es un problema de programación, sino una respuesta legítima del emisor. Se recomienda capturar este error y mostrar un mensaje al comprador, sin registrar el error como una excepción no controlada [03-manejo-de-errores.md].\n\nEl porcentaje del monto del pago fallido respecto al monto total de los pagos de Café Tortoni Centro es del 22.07% (cálculo: porcentaje y valores 320000 sobre 1450000).\n\nLimitaciones: No se realizó el cálculo del porcentaje que representa el pago fallido respecto al monto total de los pagos en el informe del investigador.",
+      "resultado_accion": null,
+      "ronda": 1
+    },
+    {
+      "indice": 3,
+      "job_id": "d01a2d1cbe3140e2a1277a19efcaa066",
+      "pregunta": "Librería Ávila tuvo un pago fallido. ¿Qué indica su código de error según la documentación y qué porcentaje de sus pagos representa?",
+      "latencia_post_s": 0.0447,
+      "latencia_hasta_estado_s": 18.509,
+      "estado_tras_primera_fase": "DONE",
+      "estado_final": "DONE",
+      "duracion_worker_s": 17.538,
+      "duracion_reanudacion_worker_s": null,
+      "nodos": [
+        "supervisor",
+        "investigador",
+        "supervisor",
+        "analista",
+        "supervisor",
+        "sintetizador",
+        "planificador"
+      ],
+      "error": null,
+      "respuesta": "El pago fallido de Librería Ávila tiene el código de error **E4012**, que indica que el `tarjeta_token` ha expirado. Los tokens tienen una duración de 15 minutos y no son reintentables [03-manejo-de-errores.md]. \n\nEl porcentaje de pagos fallidos para Librería Ávila sobre el total de pagos es del **25.00%** (cálculo: porcentaje, parte: 1, total: 4). \n\nLimitaciones: No se realizó el cálculo del porcentaje de pagos fallidos respecto al total en el informe del investigador, ya que eso corresponde al analista.",
+      "resultado_accion": null,
+      "ronda": 1
+    },
+    {
+      "indice": 4,
+      "job_id": "90d02e0623b646cb9ac7ae7d565ad4c4",
+      "pregunta": "Bazar Pampa tuvo un pago fallido por E4290. ¿Qué significa ese código, es reintentable y cómo debería manejarlo el comercio?",
+      "latencia_post_s": 0.0505,
+      "latencia_hasta_estado_s": 12.344,
+      "estado_tras_primera_fase": "DONE",
+      "estado_final": "DONE",
+      "duracion_worker_s": 11.803,
+      "duracion_reanudacion_worker_s": null,
+      "nodos": [
+        "supervisor",
+        "investigador",
+        "supervisor",
+        "sintetizador",
+        "planificador"
+      ],
+      "error": null,
+      "respuesta": "El código de error E4290 indica que se ha superado el límite de tasa, específicamente más de 300 solicitudes por minuto. Este error es reintentable, lo que significa que el comercio puede intentar realizar el pago nuevamente después de un tiempo [03-manejo-de-errores.md]. \n\nSe recomienda que el comercio implemente un mecanismo de reintento, respetando el límite de solicitudes para evitar que el error se repita. \n\nLimitaciones: El analista no intervino.",
+      "resultado_accion": null,
+      "ronda": 1
+    },
+    {
+      "indice": 5,
+      "job_id": "5b3b45a2c03240248398bf23f9ed7372",
+      "pregunta": "Viajes Aconcagua tuvo pagos fallidos por el código E5030. Explicame qué significa según la documentación y programá el reintento de esos pagos fallidos.",
+      "latencia_post_s": 0.0525,
+      "latencia_hasta_estado_s": 27.651,
+      "estado_tras_primera_fase": "AWAITING_APPROVAL",
+      "estado_final": "AWAITING_APPROVAL",
+      "duracion_worker_s": 26.512,
+      "duracion_reanudacion_worker_s": null,
+      "nodos": [
+        "supervisor",
+        "investigador",
+        "supervisor",
+        "analista",
+        "supervisor",
+        "investigador",
+        "supervisor",
+        "sintetizador",
+        "planificador"
+      ],
+      "error": null,
+      "respuesta": null,
+      "resultado_accion": null,
+      "ronda": 1
+    }
+  ]
+}

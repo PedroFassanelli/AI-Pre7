@@ -1,0 +1,123 @@
+{
+  "1_en_pausa": {
+    "job_id": "5b3b45a2c03240248398bf23f9ed7372",
+    "estado": "AWAITING_APPROVAL",
+    "pregunta": "Viajes Aconcagua tuvo pagos fallidos por el código E5030. Explicame qué significa según la documentación y programá el reintento de esos pagos fallidos.",
+    "creado_en": "2026-10-05T12:31:02.200+00:00",
+    "actualizado_en": "2026-10-05T12:31:29.078+00:00",
+    "iniciado_en": "2026-10-05T12:31:02.536+00:00",
+    "reanudado_en": null,
+    "terminado_en": null,
+    "nodo_actual": "planificador",
+    "nodos": [
+      "supervisor",
+      "investigador",
+      "supervisor",
+      "analista",
+      "supervisor",
+      "investigador",
+      "supervisor",
+      "sintetizador",
+      "planificador"
+    ],
+    "aprobacion_pendiente": {
+      "tipo": "programar_reintentos",
+      "resumen": "Programar el reintento de 2 pago(s) fallido(s) de Viajes Aconcagua por CLP 63.000,00.",
+      "comercio_id": 105,
+      "comercio": "Viajes Aconcagua",
+      "pago_ids": [
+        "pay_10502",
+        "pay_10503"
+      ],
+      "monto_total_centavos": 6300000,
+      "moneda": "CLP",
+      "codigos_error": [
+        "E5030"
+      ],
+      "motivo": "El usuario pidió programar el reintento de los pagos fallidos con código E5030.",
+      "criticidad": [
+        "Efecto secundario: genera nuevos intentos de cobro sobre los medios de pago de los clientes (escribe en reintentos_programados).",
+        "Monto alto: CLP 63.000,00 (umbral CLP 10.000,00)."
+      ],
+      "descartados": [],
+      "como_responder": "POST /tasks/{job_id}/approve  {\"aprobado\": true|false, \"revisor\": \"...\", \"comentario\": \"...\"}"
+    },
+    "aprobacion": null,
+    "respuesta": null,
+    "task_completed": null,
+    "resultado_accion": null,
+    "error": null,
+    "duracion_segundos": 26.512,
+    "duracion_reanudacion_segundos": null
+  },
+  "2_approve_sobre_job_no_pausado": {
+    "status": 409,
+    "body": {
+      "detail": "El job está en DONE: solo se aprueba en AWAITING_APPROVAL."
+    }
+  },
+  "3_final": {
+    "job_id": "5b3b45a2c03240248398bf23f9ed7372",
+    "estado": "DONE",
+    "pregunta": "Viajes Aconcagua tuvo pagos fallidos por el código E5030. Explicame qué significa según la documentación y programá el reintento de esos pagos fallidos.",
+    "creado_en": "2026-10-05T12:31:02.200+00:00",
+    "actualizado_en": "2026-10-05T12:37:19.504+00:00",
+    "iniciado_en": "2026-10-05T12:31:02.536+00:00",
+    "reanudado_en": "2026-10-05T12:37:19.379+00:00",
+    "terminado_en": "2026-10-05T12:37:19.504+00:00",
+    "nodo_actual": "ejecutar_accion",
+    "nodos": [
+      "supervisor",
+      "investigador",
+      "supervisor",
+      "analista",
+      "supervisor",
+      "investigador",
+      "supervisor",
+      "sintetizador",
+      "planificador",
+      "aprobacion_humana",
+      "ejecutar_accion"
+    ],
+    "aprobacion_pendiente": {
+      "tipo": "programar_reintentos",
+      "resumen": "Programar el reintento de 2 pago(s) fallido(s) de Viajes Aconcagua por CLP 63.000,00.",
+      "comercio_id": 105,
+      "comercio": "Viajes Aconcagua",
+      "pago_ids": [
+        "pay_10502",
+        "pay_10503"
+      ],
+      "monto_total_centavos": 6300000,
+      "moneda": "CLP",
+      "codigos_error": [
+        "E5030"
+      ],
+      "motivo": "El usuario pidió programar el reintento de los pagos fallidos con código E5030.",
+      "criticidad": [
+        "Efecto secundario: genera nuevos intentos de cobro sobre los medios de pago de los clientes (escribe en reintentos_programados).",
+        "Monto alto: CLP 63.000,00 (umbral CLP 10.000,00)."
+      ],
+      "descartados": [],
+      "como_responder": "POST /tasks/{job_id}/approve  {\"aprobado\": true|false, \"revisor\": \"...\", \"comentario\": \"...\"}"
+    },
+    "aprobacion": {
+      "aprobado": true,
+      "revisor": "pedro.fassanelli",
+      "comentario": "E5030 es reintentable según la doc: aprobado."
+    },
+    "respuesta": "El código de error E5030 indica que hubo un problema en el procesamiento de los pagos de Viajes Aconcagua. Sin embargo, no se proporciona una descripción específica del error en la documentación que revisé [03-manejo-de-errores.md]. \n\nSegún el análisis, se registraron 2 pagos fallidos con el código de error E5030, y el monto total de esos pagos fallidos es de 63000 CLP. \n\nLimitaciones: No se encontró información sobre la `idempotency_key` en los registros de pagos, lo que es necesario para proceder con el reintento de los pagos fallidos.\n\nAcción ejecutada (aprobada por pedro.fassanelli): se programó el reintento de pay_10502, pay_10503 por CLP 63.000,00.",
+    "task_completed": true,
+    "resultado_accion": {
+      "ejecutada": true,
+      "detalle": "Acción ejecutada (aprobada por pedro.fassanelli): se programó el reintento de pay_10502, pay_10503 por CLP 63.000,00.",
+      "pago_ids": [
+        "pay_10502",
+        "pay_10503"
+      ]
+    },
+    "error": null,
+    "duracion_segundos": 26.512,
+    "duracion_reanudacion_segundos": 0.117
+  }
+}
